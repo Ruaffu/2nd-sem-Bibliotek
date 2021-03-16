@@ -2,8 +2,12 @@ package DBAccess;
 
 import FunctionLayer.Kunde;
 import FunctionLayer.LoginSampleException;
-
-import java.sql.*;
+import FunctionLayer.Kunde;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,20 +18,29 @@ import java.util.List;
 public class UserMapper {
 
 
-    public static void createKunde(Kunde kunde) throws LoginSampleException {
-        try {
-//            Connection con = Connector.connection();
-            Connection con = ConnectionConfiguration.getConnection();
-            String SQL = "INSERT INTO Kunde (Kundenavn ) VALUES (?)";
-            PreparedStatement ps = con.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, kunde.getKundeNavn());
+    // nu virker denne her.
+    public static void OpretKunde(Kunde kunde) throws LoginSampleException {
 
+        // her laver vi vores sql statement
+        String sql = "INSERT INTO KundeTabel (KundeNavn, Adresse, PostNr ) VALUES (?, ?, ?)";
+
+
+        try (Connection con = ConnectionConfiguration.getConnection();  // får en connection
+
+
+             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); // NB: Statement.RETURN_GENERATED_KEYS
+        )  {
+
+            // her klargøres mit prepared statement ved at min parametre indsættes.
+            ps.setString(1, kunde.getKundeNavn());
+            ps.setString(2, kunde.getAdresse());
+            ps.setString(3, kunde.getPostNr());
             ps.executeUpdate();
 
             ResultSet ids = ps.getGeneratedKeys();
             ids.next();
             int id = ids.getInt(1);
-            kunde.setKundeId(id);
+            kunde.setIdKunde(id);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -35,6 +48,48 @@ public class UserMapper {
 
     }
 
+
+//
+//    public static List<Kunde> opretKunde() {
+//
+//        List<Kunde> kundeList = new ArrayList<>();
+//
+//        String sql = "INSERT INTO Kunde (Kundenavn ) VALUES (?)";
+//
+//        try (Connection con = ConnectionConfiguration.getConnection();
+////             PreparedStatement ps = con.prepareStatement(sql)
+//             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+//        )  {
+//
+//            ps.setString(1, kunde.getKundeNavn());
+//
+//            ps.executeUpdate();
+//
+//            ResultSet ids = ps.getGeneratedKeys();
+//            ids.next();
+//            int id = ids.getInt(1);
+//            kunde.setKundeId(id);
+//
+//
+////            ResultSet resultSet = ps.executeQuery();
+////            while (resultSet.next()){
+////                int id = resultSet.getInt("idKunde");
+////                String navn = resultSet.getString("Kundenavn");
+////
+////                Kunde kunde = new Kunde(id, navn);
+////                kundeList.add(kunde);
+//
+//
+//        } catch (SQLException e) {
+//            System.out.println("Fejl i connection til database");
+//            e.printStackTrace();
+//        }
+//        return kundeList;
+//    }
+//
+//
+//
+//
 //    public static List<Kunde> getKunder() {
 //
 //        List<Kunde> kundeList = new ArrayList<>();
@@ -49,7 +104,7 @@ public class UserMapper {
 //                String navn = resultSet.getString("Kundenavn");
 //
 //                Kunde kunde = new Kunde(id, navn);
-//               kundeList.add(kunde);
+//                kundeList.add(kunde);
 //            }
 //        } catch (SQLException e) {
 //            System.out.println("Fejl i connection til database");
@@ -83,7 +138,7 @@ public class UserMapper {
 //
 //
 //
-//            return kundeNavn + " " + "fandtes ikke i listen";
+//        return kundeNavn + " " + "fandtes ikke i listen";
 //
 //
 //

@@ -44,4 +44,5 @@ public class Kunde {
     public void setPostNr(String postNr) {
         this.postNr = postNr;
     }
+
 }
