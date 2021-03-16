@@ -51,46 +51,6 @@ public class KundeMapper {
     }
 
 
-//
-//    public static List<Kunde> hentKunder() {
-//
-//        List<Kunde> kundeList = new ArrayList<>();
-//
-//        String sql = "INSERT INTO Kunde (Kundenavn ) VALUES (?)";
-//
-//        try (Connection con = ConnectionConfiguration.getConnection();
-////             PreparedStatement ps = con.prepareStatement(sql)
-//             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-//        )  {
-//
-//            ps.setString(1, kunde.getKundeNavn());
-//
-//            ps.executeUpdate();
-//
-//            ResultSet ids = ps.getGeneratedKeys();
-//            ids.next();
-//            int id = ids.getInt(1);
-//            kunde.setKundeId(id);
-//
-//
-////            ResultSet resultSet = ps.executeQuery();
-////            while (resultSet.next()){
-////                int id = resultSet.getInt("idKunde");
-////                String navn = resultSet.getString("Kundenavn");
-////
-////                Kunde kunde = new Kunde(id, navn);
-////                kundeList.add(kunde);
-//
-//
-//        } catch (SQLException e) {
-//            System.out.println("Fejl i connection til database");
-//            e.printStackTrace();
-//        }
-//        return kundeList;
-//    }
-//
-
-
     // nu virker det her
     public static List<Kunde> HentKunder() {
 
@@ -143,4 +103,45 @@ public class KundeMapper {
 
 
     }
+
+
+
+
+
+
+    public static String updateKunde(int idKunde, String kundeNavn , String adresse, String PostNr) {
+
+        String sql = "update  KundeTabel set KundeNavn = ? , Adresse = ? , PostNr = ? where idKundeTabel = ?";
+
+
+
+        try (Connection con = ConnectionConfiguration.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql);) {
+            ps.setString(1, kundeNavn);
+            ps.setString(2, adresse);
+            ps.setString(3, PostNr);
+
+            ps.setInt(4, idKunde);
+
+            int res = ps.executeUpdate();
+
+            if (res > 0) {
+
+                return "Kunden med navnet " + "\""  + kundeNavn + "\""  + " er nu blevet opdateret";
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        return "en kunde med navnet " + "\"" + kundeNavn + "\"" + " fandtes ikke i listen";
+
+
+    }
+
+
+
+
 }

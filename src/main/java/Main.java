@@ -28,8 +28,10 @@ public class Main {
         System.out.println(fjernKunde("lone"));
 
 
-        //udskrivKunder();
 
+        opdatere(401, "Jørgen", "Vedkæret 23, ", "2820");
+
+        udskrivKunder();
 
     }
 
@@ -39,6 +41,14 @@ public class Main {
 
         return KundeMapper.deleteKunde( navn );
 
+
+
+
+    }
+
+    public static String opdatere(int idKunde, String navn, String adresse, String postNr) {
+
+       return KundeMapper.updateKunde(idKunde,navn,adresse, postNr);
 
     }
 
