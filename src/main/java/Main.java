@@ -9,14 +9,6 @@ public class Main {
 
     public static void main(String[] args) throws LoginSampleException {
 
-        /* opgaver .
-        *
-        * Jeg har lavet en kunde mapper. I skal lave BogMapper med de tilsvarende
-        * fungtioner.
-        *
-        * I skal lave en metoder der automatisk kan oprette en masse lån, dvs.
-        * automatiske fylde data ind i lånetabellen.
-        * */
 
 
 
