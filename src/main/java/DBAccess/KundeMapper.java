@@ -12,18 +12,15 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * The purpose of UserMapper is to...
- *
- * @author kasper
- */
+
+
 public class KundeMapper {
 
 
-    // nu virker denne her.
+
     public static void OpretKunde(Kunde kunde) throws LoginSampleException {
 
-        // her laver vi vores sql statement
+
         String sql = "INSERT INTO KundeTabel (KundeNavn, Adresse, PostNr ) VALUES (?, ?, ?)";
 
 
@@ -51,7 +48,7 @@ public class KundeMapper {
     }
 
 
-    // nu virker det her
+
     public static List<Kunde> HentKunder() {
 
         List<Kunde> kundeList = new ArrayList<>();
