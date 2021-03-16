@@ -13,6 +13,14 @@ public class Kunde {
         this.postNr = postNr;
     }
 
+
+    public Kunde(int idKunde, String kundeNavn, String adresse, String postNr) {
+        this.idKunde = idKunde;
+        this.kundeNavn = kundeNavn;
+        this.adresse = adresse;
+        this.postNr = postNr;
+    }
+
     public int getIdKunde() {
         return idKunde;
     }
