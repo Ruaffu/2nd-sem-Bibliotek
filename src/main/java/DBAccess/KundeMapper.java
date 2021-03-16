@@ -27,14 +27,17 @@ public class KundeMapper {
         try (Connection con = ConnectionConfiguration.getConnection();  // får en connection
 
 
-             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS); // NB: Statement.RETURN_GENERATED_KEYS
+             // se evt. https://docs.oracle.com/javase/tutorial/jdbc/basics/prepared.html
+             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         ) {
 
             // her klargøres mit prepared statement ved at min parametre indsættes.
             ps.setString(1, kunde.getKundeNavn());
             ps.setString(2, kunde.getAdresse());
             ps.setString(3, kunde.getPostNr());
-            ps.executeUpdate();
+
+
+            ps.executeUpdate();    //https://javaconceptoftheday.com/difference-between-executequery-executeupdate-execute-in-jdbc/
 
             ResultSet ids = ps.getGeneratedKeys();
             ids.next();
@@ -56,8 +59,11 @@ public class KundeMapper {
         String sql = "select * from KundeTabel ";
 
         try (Connection con = ConnectionConfiguration.getConnection();
-             PreparedStatement ps = con.prepareStatement(sql)) {
-            ResultSet resultSet = ps.executeQuery();
+             PreparedStatement ps = con.prepareStatement(sql)) {           // https://en.wikipedia.org/wiki/Prepared_statement
+
+
+            ResultSet resultSet = ps.executeQuery();   //https://javaconceptoftheday.com/difference-between-executequery-executeupdate-execute-in-jdbc/
+
             while (resultSet.next()) {
                 int id = resultSet.getInt("idKundeTabel");
                 String navn = resultSet.getString("KundeNavn");
@@ -83,7 +89,8 @@ public class KundeMapper {
              PreparedStatement ps = con.prepareStatement(sql);) {
             ps.setString(1, kundeNavn);
 
-            int res = ps.executeUpdate();
+
+            int res = ps.executeUpdate();       //https://javaconceptoftheday.com/difference-between-executequery-executeupdate-execute-in-jdbc/
 
             if (res > 0) {
 
@@ -120,7 +127,8 @@ public class KundeMapper {
 
             ps.setInt(4, idKunde);
 
-            int res = ps.executeUpdate();
+
+            int res = ps.executeUpdate();    //https://javaconceptoftheday.com/difference-between-executequery-executeupdate-execute-in-jdbc/
 
             if (res > 0) {
 
