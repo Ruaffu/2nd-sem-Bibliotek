@@ -14,17 +14,27 @@ public class Main {
 
 
 
-        //nyKunde("lone","nøjsomhedsvej 12", "2800");
+//        //nyKunde("lone","nøjsomhedsvej 12", "2800");
+//
+//       // udskrivKunder();
+//
+//        System.out.println(fjernKunde("lone"));
+//
+//
+//
+//        opdatere(401, "Jørgen", "Vedkæret 23, ", "2820");
+//
+//        udskrivKunder();
 
-       // udskrivKunder();
 
-        System.out.println(fjernKunde("lone"));
-
-
-
-        opdatere(401, "Jørgen", "Vedkæret 23, ", "2820");
+        //nyKunde("Alexander","Mathildeparken 23", "3400");
 
         udskrivKunder();
+
+       fjernKunde("jørgen");
+
+        udskrivKunder();
+
 
     }
 
@@ -46,11 +56,13 @@ public class Main {
 
     }
 
-    // todo lav en udskriv kunde metode. Moden skal tage et kunde id som imput, og udskrive stamoplysningerne
+    // todo lav en udskriv kunde metode. Metoden skal tage et kunde id som imput, og udskrive stamoplysningerne
 
     public static void udskrivKunder() {
 
-        for (Kunde k : hentKunder() ) {
+        List<Kunde> kundeList = hentKunder();
+
+        for (Kunde k : kundeList ) {
 
             System.out.println( k.getIdKunde() + " " +  k.getKundeNavn());
 
@@ -68,7 +80,7 @@ public class Main {
 
         Kunde kunde = new Kunde(navn,adresse,postnr);
 
-        KundeMapper.OpretKunde(kunde);
+        KundeMapper.opretKunde(kunde);
 
     }
 

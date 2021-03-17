@@ -16,7 +16,7 @@ public class KundeMapper {
 
 
 
-    public static void OpretKunde(Kunde kunde)  {
+    public static void opretKunde(Kunde kunde)  {
 
 
         String sql = "INSERT INTO KundeTabel (KundeNavn, Adresse, PostNr ) VALUES (?, ?, ?)";
@@ -123,6 +123,7 @@ public class KundeMapper {
             ps.setString(2, adresse);
             ps.setString(3, PostNr);
 
+            // det er det her jeg søger på.
             ps.setInt(4, idKunde);
 
 
