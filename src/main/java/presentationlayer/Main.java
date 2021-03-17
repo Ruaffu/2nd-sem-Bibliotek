@@ -35,15 +35,18 @@ public class Main {
         return KundeMapper.deleteKunde( navn );
 
 
-
-
     }
+
+    // todo lav en fjernkunde som tager et kunde id som input. Det kunne jo være der var flere kunder med samme navn.
+
 
     public static String opdatere(int idKunde, String navn, String adresse, String postNr) {
 
        return KundeMapper.updateKunde(idKunde,navn,adresse, postNr);
 
     }
+
+    // todo lav en udskriv kunde metode. Moden skal tage et kunde id som imput, og udskrive stamoplysningerne
 
     public static void udskrivKunder() {
 
