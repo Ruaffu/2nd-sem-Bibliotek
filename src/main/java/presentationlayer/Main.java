@@ -1,13 +1,14 @@
+package presentationlayer;
+
 import DBAccess.KundeMapper;
 import FunctionLayer.Kunde;
-import FunctionLayer.LoginSampleException;
 
 import java.util.List;
 
 public class Main {
 
 
-    public static void main(String[] args) throws LoginSampleException {
+    public static void main(String[] args)  {
 
 
 
@@ -60,7 +61,7 @@ public class Main {
 
     }
 
-    public static void nyKunde(String navn, String adresse, String postnr ) throws LoginSampleException {
+    public static void nyKunde(String navn, String adresse, String postnr )  {
 
         Kunde kunde = new Kunde(navn,adresse,postnr);
 

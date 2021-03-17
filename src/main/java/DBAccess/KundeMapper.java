@@ -1,8 +1,6 @@
 package DBAccess;
 
 import FunctionLayer.Kunde;
-import FunctionLayer.LoginSampleException;
-import FunctionLayer.Kunde;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,7 +16,7 @@ public class KundeMapper {
 
 
 
-    public static void OpretKunde(Kunde kunde) throws LoginSampleException {
+    public static void OpretKunde(Kunde kunde)  {
 
 
         String sql = "INSERT INTO KundeTabel (KundeNavn, Adresse, PostNr ) VALUES (?, ?, ?)";
