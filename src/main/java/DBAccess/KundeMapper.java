@@ -22,8 +22,8 @@ public class KundeMapper {
         String sql = "INSERT INTO KundeTabel (KundeNavn, Adresse, PostNr ) VALUES (?, ?, ?)";
 
 
+        // se lige try-with-resources f.eks. her  https://www.baeldung.com/java-try-with-resources
         try (Connection con = ConnectionConfiguration.getConnection();  // får en connection
-
 
              // se evt. https://docs.oracle.com/javase/tutorial/jdbc/basics/prepared.html
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
