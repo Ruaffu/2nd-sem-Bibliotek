@@ -1,9 +1,9 @@
 package DBAccess;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import FunctionLayer.Bog;
 import FunctionLayer.Kunde;
 import FunctionLayer.Laan;
@@ -38,4 +38,37 @@ public class OversigtsMapper {
         }
 
     }
+
+    public static List<Laan> hentLaan(String command) {
+
+        List<Laan> laanList = new ArrayList<>();
+
+        String sql = command;
+
+        try (Connection con = ConnectionConfiguration.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {           // https://en.wikipedia.org/wiki/Prepared_statement
+
+
+            ResultSet resultSet = ps.executeQuery();   //https://javaconceptoftheday.com/difference-between-executequery-executeupdate-execute-in-jdbc/
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("TransaktionsId");
+                int kundeId = resultSet.getInt("IdKunde");
+                String kundeNavn = resultSet.getString("KundeNavn");
+                int bogId = resultSet.getInt("IdBog");
+                String title = resultSet.getString("Title");
+
+                Laan laan = new Laan(id,bogId,kundeId,kundeNavn,title);
+                laanList.add(laan);
+            }
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+        return laanList;
+    }
+
+
+
+
 }

@@ -9,6 +9,7 @@ import FunctionLayer.Laan;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Random;
 
 public class Main {
 
@@ -39,13 +40,19 @@ public class Main {
 //       fjernKunde("jørgen");
 
 //        udskrivKunder();
-        udskrivboger();
+//        udskrivboger();
 //        nyBog("Alexandre Dumas","The three musketeers","Penguin books ltd",null);
 //        opdaterBog(6,"Alexandre Dumas", "The Count of Monte Cristo", "Penguin books ltd", null);
 //        System.out.println(fjernBog("The three musketeers"));
-        nytLaan(2, 1);
+//        nytLaan(2, 1);
+//        randomLaan(5,100);
+//        System.out.println();
+//        udskrivboger();
+        udskrivAlleLaan();
         System.out.println();
-        udskrivboger();
+        udskrivLånteBoger();
+        System.out.println();
+        udskrivLåner();
 
 
     }
@@ -96,6 +103,20 @@ public class Main {
 
     }
 
+    public  static void randomLaan(int bogMax, int kundeMax){
+        int min = 1;
+        int bogId;
+        int kundeId;
+
+        Random r = new Random();
+        Random r2 = new Random();
+        bogId = r.nextInt(bogMax-min)+min;
+        kundeId = r2.nextInt(kundeMax-min)+min;
+
+        Laan laan = new Laan(bogId, kundeId);
+        OversigtsMapper.opretLaan(laan);
+    }
+
     public static void nyKunde(String navn, String adresse, String postnr )  {
 
         Kunde kunde = new Kunde(navn,adresse,postnr);
@@ -142,6 +163,48 @@ public class Main {
         return BogMapper.updateBog(idBogTabel,forfatter,title,forlag,udgivelsesdato);
 
     }
+
+    public static List<Laan> hentLaan(){
+        return OversigtsMapper.hentLaan("select * from laaninfo ");
+    }
+
+    public static void udskrivAlleLaan() {
+
+        List<Laan> laanList = hentLaan();
+
+        for (Laan l : laanList ) {
+
+            System.out.println( "LånID: "+l.getTransaktionsId() + " KundeID: "+l.getIdKunde()+
+                    " Navn: "+l.getKundeNavn()+" BogID: "+l.getIdBog()+" Title:"+l.getTitle());
+
+        }
+    }
+
+    public static void udskrivLånteBoger() {
+        System.out.println("laante boger:");
+
+        List<Laan> laanList = OversigtsMapper.hentLaan("select * from laaninfo group by IdBog");;
+
+        for (Laan l : laanList ) {
+
+            System.out.println("ID:"+l.getIdBog()+" Title:"+l.getTitle());
+
+        }
+    }
+
+    public static void udskrivLåner() {
+        System.out.println("Kunder med laante boger:");
+
+        List<Laan> laanList = OversigtsMapper.hentLaan("select * from laaninfo group by IdKunde");
+
+        for (Laan l : laanList ) {
+
+            System.out.println("ID:"+l.getIdKunde()+" Navn:"+l.getKundeNavn());
+
+        }
+    }
+
+
 
 
 
